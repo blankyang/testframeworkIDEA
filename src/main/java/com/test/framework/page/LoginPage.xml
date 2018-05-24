@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+	<!--locator of page map info -->
+	<page pageName="LoginPage">
+		<!--Locator lists -->
+		<locator type="name" timeOut="8" value="username">username</locator>
+		<locator type="name" timeOut="8" value="password">password</locator>
+		<locator type="name" timeOut="8" value="submit">submit</locator>
+		<locator type="xpath" timeOut="8" value="//*[@id='sys_header_id']/ul[2]/li/a/span[1]">admin</locator>
+	</page>
+</map>

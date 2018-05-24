@@ -1,0 +1,1 @@
+java  -Dwebdriver.ie.driver=.\IEDriverServer32.exe   -Dwebdriver.chrome.driver=chromedriver.exe  -jar selenium-server-standalone-3.4.0.jar  
