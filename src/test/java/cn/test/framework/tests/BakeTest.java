@@ -76,8 +76,7 @@ public class BakeTest extends ExtentBase {
 			params.put("loanPeriods", params.get("loanPeriods"));
 			params.put("repaymentDate", params.get("repaymentDate"));
 			params.put("totalInterest", params.get("totalInterest"));
-			params.put("totalPrincipalAndInterest",
-					params.get("totalPrincipalAndInterest"));
+			params.put("totalPrincipalAndInterest", params.get("totalPrincipalAndInterest"));
 			params.put("monthRepayment", params.get("monthRepayment"));
 			params.put("carType", params.get("carType"));
 			params.put("isNewCar", params.get("isNewCar"));

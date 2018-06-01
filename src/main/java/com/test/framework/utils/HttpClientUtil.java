@@ -34,8 +34,7 @@ import com.google.gson.Gson;
 public class HttpClientUtil {
 
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, String>> getExcelData(String SheetName)
-			throws Exception {
+	public static List<Map<String, String>> getExcelData(String SheetName) throws Exception {
 		List<Map<String, String>> params = new ArrayList<Map<String, String>>();
 		Gson gson = new Gson();
 		Object[][] array = null;
@@ -66,9 +65,8 @@ public class HttpClientUtil {
 
 	}
 
-	public static String sendGet(String path, Map<String, String> headers,
-			Map<String, String> cookies) {
-		HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
+	public static String sendGet(String path, Map<String, String> headers, Map<String, String> cookies) {
+		RequestConfig requestConfig = getRequestConfig();
 		CookieStore cookieStore = new BasicCookieStore();
 		if (cookies != null && cookies.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -77,13 +75,10 @@ public class HttpClientUtil {
 				cookieStore.addCookie(cookie);
 			}
 		}
+
 		CloseableHttpClient httpCilent2 = HttpClients.custom()
 				.setDefaultCookieStore(cookieStore).build();
-		RequestConfig requestConfig = RequestConfig.custom().setProxy(proxy)
-				.setConnectTimeout(5000) // 设置连接超时时间
-				.setConnectionRequestTimeout(5000) // 设置请求超时时间
-				.setSocketTimeout(5000).setRedirectsEnabled(true)// 默认允许自动重定向
-				.build();
+
 		HttpGet httpGet2 = new HttpGet(path);
 		httpGet2.setConfig(requestConfig);
 		if (headers != null && headers.size() > 0) {
@@ -118,9 +113,13 @@ public class HttpClientUtil {
 		}
 	}
 
+
+
 	public static String sendPost4Map(String url,
 			Map<String, String> paramsMap, Map<String, String> headers,
 			Map<String, String> cookies) {
+
+		RequestConfig requestConfig = getRequestConfig();
 		HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
 		CookieStore cookieStore = new BasicCookieStore();
 		if (cookies != null && cookies.size() > 0) {
@@ -133,10 +132,6 @@ public class HttpClientUtil {
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setDefaultCookieStore(cookieStore).build();
 		HttpPost httpPost = new HttpPost(url);
-		RequestConfig requestConfig = RequestConfig.custom()
-				.setConnectTimeout(180 * 1000)
-				.setConnectionRequestTimeout(180 * 1000).setProxy(proxy)
-				.setSocketTimeout(180 * 1000).setRedirectsEnabled(true).build();
 		httpPost.setConfig(requestConfig);
 		if (headers != null && headers.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -176,7 +171,7 @@ public class HttpClientUtil {
 
 	public static String sendPost4Json(String url, String jsonParams,
 			Map<String, String> headers, Map<String, String> cookies) {
-		HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
+		RequestConfig requestConfig = getRequestConfig();
 		CookieStore cookieStore = new BasicCookieStore();
 		if (cookies != null && cookies.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -188,10 +183,6 @@ public class HttpClientUtil {
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setDefaultCookieStore(cookieStore).build();
 		HttpPost httpPost = new HttpPost(url);
-		RequestConfig requestConfig = RequestConfig.custom()
-				.setConnectTimeout(180 * 1000).setProxy(proxy)
-				.setConnectionRequestTimeout(180 * 1000)
-				.setSocketTimeout(180 * 1000).setRedirectsEnabled(true).build();
 		httpPost.setConfig(requestConfig);
 		if (headers != null && headers.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -227,7 +218,7 @@ public class HttpClientUtil {
 	public static String sendPost4File(String serverUrl,
 			Map<String, File> files, Map<String, String> params,
 			Map<String, String> headers, Map<String, String> cookies) {
-		HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
+		RequestConfig requestConfig = getRequestConfig();
 		CookieStore cookieStore = new BasicCookieStore();
 		if (cookies != null && cookies.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -239,10 +230,6 @@ public class HttpClientUtil {
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setDefaultCookieStore(cookieStore).build();
 		HttpPost httpPost = new HttpPost(serverUrl);
-		RequestConfig requestConfig = RequestConfig.custom()
-				.setConnectTimeout(180 * 1000).setProxy(proxy)
-				.setConnectionRequestTimeout(180 * 1000)
-				.setSocketTimeout(180 * 1000).setRedirectsEnabled(true).build();
 		httpPost.setConfig(requestConfig);
 		if (headers != null && headers.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -272,7 +259,6 @@ public class HttpClientUtil {
 		}
 		HttpEntity httpEntity = builder.build();
 		try {
-
 			httpPost.setEntity(httpEntity);
 			HttpResponse response = httpClient.execute(httpPost);
 			if (response.getStatusLine().getStatusCode() == 200) {
@@ -300,7 +286,7 @@ public class HttpClientUtil {
 			Map<String, File[]> files, Map<String, String> params,
 			Map<String, String> headers, Map<String, String> cookies) {
 		HttpPost httpPost = new HttpPost(url);
-		HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
+		RequestConfig requestConfig = getRequestConfig();
 		CookieStore cookieStore = new BasicCookieStore();
 		if (cookies != null && cookies.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -309,12 +295,7 @@ public class HttpClientUtil {
 				cookieStore.addCookie(cookie);
 			}
 		}
-		CloseableHttpClient httpClient = HttpClients.custom()
-				.setDefaultCookieStore(cookieStore).build();
-		RequestConfig requestConfig = RequestConfig.custom()
-				.setConnectTimeout(180 * 1000).setProxy(proxy)
-				.setConnectionRequestTimeout(180 * 1000)
-				.setSocketTimeout(180 * 1000).setRedirectsEnabled(true).build();
+		CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).build();
 		httpPost.setConfig(requestConfig);
 		if (headers != null && headers.size() > 0) {
 			for (Map.Entry<String, String> en : headers.entrySet()) {
@@ -370,6 +351,16 @@ public class HttpClientUtil {
 				}
 		}
 
+	}
+
+	private static RequestConfig getRequestConfig() {
+		HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
+		return RequestConfig.custom()
+				.setProxy(proxy)
+				.setConnectTimeout(5000) // 设置连接超时时间
+				.setConnectionRequestTimeout(5000) // 设置请求超时时间
+				.setSocketTimeout(5000).setRedirectsEnabled(true)// 默认允许自动重定向
+				.build();
 	}
 
 }

@@ -21,7 +21,6 @@ import com.test.framework.utils.MailUtil;
 public abstract class ExtentBase {
     protected ExtentReports extent;
     protected static ExtentTest test;
-    protected String logKey;
     protected String fileName = "接口测试.html";
     final String filePath = System.getProperty("user.dir") 
     		+ "/report/" 
@@ -41,7 +40,7 @@ public abstract class ExtentBase {
         if (result.getStatus() == ITestResult.SKIP) {
             test.log(LogStatus.SKIP, result.getThrowable().toString());
         }
-        extent.endTest(test);        
+        extent.endTest(test);
         extent.flush();
     	
    }
@@ -54,9 +53,7 @@ public abstract class ExtentBase {
     @AfterSuite
     protected void afterSuite() throws Exception {
     	extent.flush();
-        extent.close();
-//        FileOutputStream fos1 = new FileOutputStream(
-//				new File("report/test.zip"));
+//      FileOutputStream fos1 = new FileOutputStream(new File("report/test.zip"));
 //		FileUtil.toZip("report/2018-04-23", fos1, true);
 //		List<File> attachments = new ArrayList<File>();
 //		attachments.add(new File("report/test.zip"));

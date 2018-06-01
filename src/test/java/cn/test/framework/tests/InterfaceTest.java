@@ -40,10 +40,8 @@ public class InterfaceTest extends ExtentBase {
 	public void test_image_rec(Map<String, String> param) throws Exception {
 		test = extent.startTest((this.getClass().getSimpleName() + "_"
 				+ "test_image_rec" + "_" + param.get("image_name")));
-		logKey = param.get("image_name");
 		Map<String, File> files = new HashMap<String, File>();
-		File file = new File(System.getProperty("user.dir") + "/photos/"
-				+ logKey);
+		File file = new File(System.getProperty("user.dir") + "/photos/");
 		System.out.println("图片路径===" + file.getCanonicalPath());
 		files.put("photo", file);
 		String url = protocol + "://" + ip + ":" + port + param.get("url");
